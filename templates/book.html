@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>有声书制作 · Book TTS</title>
+    <link rel="stylesheet" href="/static/app.css?v=20261008" />
+  </head>
+  <body data-page="book" data-book-id="{{ book_id }}">
+    <header class="topbar">
+      <div class="topbar-left">
+        <a class="back-link" href="/">返回书库</a>
+        <span id="topbar-book-title" class="topbar-title">正在读取书稿…</span>
+      </div>
+      <form method="post" action="/logout"><button class="text-button" type="submit">退出</button></form>
+    </header>
+
+    <main class="studio-shell">
+      <div id="book-error" class="alert alert-error hidden"></div>
+      <div class="studio-layout">
+        <aside id="process-nav" class="process-nav" aria-label="制作流程"></aside>
+
+        <section class="studio-workspace" aria-live="polite">
+          <div id="pending-execution"></div>
+          <div id="range-panel"></div>
+          <div id="stage-workflow"></div>
+          <div id="chapter-browser"></div>
+          <div id="history-browser"></div>
+        </section>
+
+        <aside id="execution-summary" class="scope-summary" aria-label="已选范围"></aside>
+      </div>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="/static/app.js?v=20261008"></script>
+  </body>
+</html>

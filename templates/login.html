@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>登录 · Book TTS</title>
+    <link rel="stylesheet" href="/static/app.css?v=20260926-2" />
+  </head>
+  <body class="auth-page">
+    <main class="auth-card">
+      <h1>Book TTS</h1>
+      <p class="muted">上传书稿，稍后在 Audiobookshelf 中收听。</p>
+      {% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
+      <form method="post" action="/login" class="stack-form">
+        <label for="password">管理密码</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required autofocus />
+        <button class="button button-primary" type="submit">登录</button>
+      </form>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+services:
+  web:
+    build: .
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      APP_ROLE: web
+      DATA_DIR: /data
+      AUDIOBOOKS_DIR: /audiobooks
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/data
+      - ./audiobooks:/audiobooks
+
+  worker:
+    build: .
+    restart: unless-stopped
+    command: ["python", "-m", "app.worker"]
+    env_file:
+      - .env
+    environment:
+      APP_ROLE: worker
+      DATA_DIR: /data
+      AUDIOBOOKS_DIR: /audiobooks
+    volumes:
+      - ./data:/data
+      - ./audiobooks:/audiobooks

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>书库 · Book TTS</title>
+    <link rel="stylesheet" href="/static/app.css?v=20260930" />
+  </head>
+  <body data-page="dashboard">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="返回书库">Book TTS</a>
+      <form method="post" action="/logout"><button class="text-button" type="submit">退出</button></form>
+    </header>
+    <main class="page-shell">
+      <section class="page-heading">
+        <h1>书库</h1>
+        <div class="page-heading-actions"><button id="open-tts-settings" class="button button-secondary" type="button">TTS 配置</button><button id="open-upload" class="button button-primary" type="button">添加书稿</button></div>
+      </section>
+
+      <section class="library-section">
+        <h2>正在制作 <span id="active-count" class="count-label">0 本</span></h2>
+        <div id="active-books" class="library-list"></div>
+        <div id="active-empty" class="empty-state">还没有书稿。<button class="text-button text-button-accent open-upload-inline" type="button">添加第一本</button></div>
+      </section>
+      <section class="library-section">
+        <h2>已完成 <span id="completed-count" class="count-label">0 本</span></h2>
+        <div id="completed-books" class="library-list"></div>
+        <div id="completed-empty" class="empty-state hidden">完成章节成品后，会出现在这里。</div>
+      </section>
+    </main>
+
+    <!-- 添加书稿：原生 dialog 负责遮罩、焦点和 Esc 关闭 -->
+    <dialog id="upload-dialog" class="app-dialog upload-dialog" aria-labelledby="upload-title">
+      <div class="dialog-body">
+      <div class="dialog-header"><h2 id="upload-title">添加书稿</h2><button class="text-button close-dialog" type="button">关闭</button></div>
+      <form id="upload-form" class="upload-form">
+        <input id="book-file" name="file" type="file" accept=".epub,.txt" hidden />
+        <button id="choose-file" class="upload-drop" type="button"><strong>选择 EPUB 或 TXT</strong><span>也可以把文件拖到这里</span><small id="selected-file">尚未选择文件</small></button>
+        <section id="voice-picker" class="voice-picker" aria-labelledby="voice-picker-title">
+          <div class="voice-picker-heading">
+            <h3 id="voice-picker-title">音色</h3>
+            <span id="voice-picker-status" class="muted-text">正在加载音色…</span>
+          </div>
+          <div id="tts-provider-options" class="tts-provider-options"></div>
+          <div id="voice-options" class="voice-options"></div>
+          <div class="voice-preview-bar">
+            <span id="voice-preview-text" class="muted-text"></span>
+            <audio id="voice-preview-audio" class="voice-preview-audio hidden" controls preload="none">你的浏览器不支持音频播放。</audio>
+          </div>
+          <div id="voice-error" class="alert alert-error hidden"></div>
+        </section>
+        <section class="voice-picker" aria-labelledby="speech-style-title">
+          <div class="voice-picker-heading"><h3 id="speech-style-title">朗读稿风格</h3></div>
+          <div id="speech-style-options" class="tts-provider-options"></div>
+        </section>
+        <label class="field">TXT 章节标题正则（可选）<input name="chapter_regex" type="text" placeholder="留空则整本作为一章" /></label>
+        <div id="upload-error" class="alert alert-error hidden"></div>
+        <button id="upload-submit" class="button button-primary button-block" type="submit" disabled>上传并建立索引</button>
+      </form>
+      </div>
+    </dialog>
+
+    <div id="toast" class="toast" role="status"></div>
+    <script src="/static/app.js?v=20260930"></script>
+  </body>
+</html>
